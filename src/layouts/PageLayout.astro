@@ -4,10 +4,16 @@ import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import Announcement from '~/components/widgets/Announcement.astro';
 
+<<<<<<< HEAD
 import { getHeaderData, getFooterData } from '~/navigation';
 import { MetaData } from '~/types';
 import { getLocaleFromUrl } from '~/i18n/translator';
 import { I18N } from '~/utils/config';
+=======
+import { headerData, footerData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+>>>>>>> origin/main
 
 const headerData = getHeaderData(getLocaleFromUrl(Astro.url));
 const footerData = getFooterData(getLocaleFromUrl(Astro.url));

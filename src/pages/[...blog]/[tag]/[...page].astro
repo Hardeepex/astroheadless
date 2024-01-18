@@ -1,4 +1,5 @@
 ---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
 import { blogTagRobots, getStaticPathsBlogTag } from '~/utils/blog';
 
 import Layout from '~/layouts/PageLayout.astro';
@@ -7,11 +8,15 @@ import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
 import { getLocaleFromUrl } from '~/i18n/translator';
 
-export async function getStaticPaths ({ paginate }) {
-  return await getStaticPathsBlogTag({ paginate });
-}
+export const prerender = true;
 
-const { page, tag } = Astro.props;
+export const getStaticPaths = (async ({ paginate }) => {
+  return await getStaticPathsBlogTag({ paginate });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page, tag } = Astro.props as Props;
 
 const currentPage = page.currentPage ?? 1;
 const locale = getLocaleFromUrl(Astro.url);

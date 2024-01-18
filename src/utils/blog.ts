@@ -1,7 +1,13 @@
+import type { PaginateFunction } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+<<<<<<< HEAD
 import type { Post, LocalizedPost } from '~/types';
 import { APP_BLOG, I18N } from '~/utils/config';
+=======
+import type { Post } from '~/types';
+import { APP_BLOG } from '~/utils/config';
+>>>>>>> origin/main
 import { cleanSlug, trimSlash, BLOG_BASE, POST_PERMALINK_PATTERN, CATEGORY_BASE, TAG_BASE } from './permalinks';
 
 const generatePermalink = async ({
@@ -187,7 +193,7 @@ export const findLatestPosts = async ({ count }: { count?: number }, locale: str
 };
 
 /** */
-export const getStaticPathsBlogList = async ({ paginate }) => {
+export const getStaticPathsBlogList = async ({ paginate }: { paginate: PaginateFunction }) => {
   if (!isBlogEnabled || !isBlogListRouteEnabled) return [];
   const _postsLocalized = await fetchLocalizedPosts();
 
@@ -200,9 +206,13 @@ export const getStaticPathsBlogList = async ({ paginate }) => {
 /** */
 export const getStaticPathsBlogPost = async () => {
   if (!isBlogEnabled || !isBlogPostRouteEnabled) return [];
+<<<<<<< HEAD
   const _postsLocalized = await fetchLocalizedPosts();
 
   return _postsLocalized.map((post) => ({
+=======
+  return (await fetchPosts()).flatMap((post) => ({
+>>>>>>> origin/main
     params: {
       blog: post.common_slug,
     },
@@ -211,9 +221,10 @@ export const getStaticPathsBlogPost = async () => {
 };
 
 /** */
-export const getStaticPathsBlogCategory = async ({ paginate }) => {
+export const getStaticPathsBlogCategory = async ({ paginate }: { paginate: PaginateFunction }) => {
   if (!isBlogEnabled || !isBlogCategoryRouteEnabled) return [];
 
+<<<<<<< HEAD
   const _postsLocalized = await fetchLocalizedPosts();
 
   const categoriesSet = new Set(
@@ -225,6 +236,15 @@ export const getStaticPathsBlogCategory = async ({ paginate }) => {
   );
 
   return Array.from(categoriesSet).flatMap(category =>
+=======
+  const posts = await fetchPosts();
+  const categories = new Set<string>();
+  posts.map((post) => {
+    typeof post.category === 'string' && categories.add(post.category.toLowerCase());
+  });
+
+  return Array.from(categories).flatMap((category) =>
+>>>>>>> origin/main
     paginate(
       _postsLocalized.filter(post =>
         Object.values(post.locales).some(
@@ -242,9 +262,10 @@ export const getStaticPathsBlogCategory = async ({ paginate }) => {
 };
 
 /** */
-export const getStaticPathsBlogTag = async ({ paginate }) => {
+export const getStaticPathsBlogTag = async ({ paginate }: { paginate: PaginateFunction }) => {
   if (!isBlogEnabled || !isBlogTagRouteEnabled) return [];
 
+<<<<<<< HEAD
   const _postsLocalized = await fetchLocalizedPosts();
 
   const tagsSet = new Set(
@@ -258,6 +279,15 @@ export const getStaticPathsBlogTag = async ({ paginate }) => {
   );
 
   return Array.from(tagsSet).flatMap(tag =>
+=======
+  const posts = await fetchPosts();
+  const tags = new Set<string>();
+  posts.map((post) => {
+    Array.isArray(post.tags) && post.tags.map((tag) => tags.add(tag.toLowerCase()));
+  });
+
+  return Array.from(tags).flatMap((tag) =>
+>>>>>>> origin/main
     paginate(
       _postsLocalized.filter(post =>
         Object.values(post.locales).some(

@@ -2,7 +2,11 @@
   publish = "dist"
   command = "npm run build"
 [build.processing.html]
+<<<<<<< HEAD
   pretty_urls = true
+=======
+  pretty_urls = false
+>>>>>>> origin/main
 [[headers]]
   for = "/assets/*"
   [headers.values]

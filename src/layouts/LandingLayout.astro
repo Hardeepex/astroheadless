@@ -2,9 +2,14 @@
 import PageLayout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 
+<<<<<<< HEAD
 import { getHeaderData } from '~/navigation';
 import { MetaData } from '~/types';
 import { getLocaleFromUrl } from '~/i18n/translator';
+=======
+import { headerData } from '~/navigation';
+import type { MetaData } from '~/types';
+>>>>>>> origin/main
 
 export interface Props {
   metadata?: MetaData;
@@ -24,7 +29,6 @@ const headerData = getHeaderData(getLocaleFromUrl(Astro.url));
         links={headerData?.links[2] ? [headerData.links[2]] : undefined}
         actions={[
           {
-            type: 'ghost',
             text: 'Download',
             href: 'https://github.com/onwidget/astrowind'
           },

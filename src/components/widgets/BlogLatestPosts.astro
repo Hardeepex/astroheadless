@@ -7,7 +7,11 @@ import { getBlogPermalink } from "~/utils/permalinks";
 import { findLatestPosts } from "~/utils/blog";
 import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
 import type { Widget } from "~/types";
+<<<<<<< HEAD
 import { getLocaleFromUrl } from "~/i18n/translator";
+=======
+import Button from "../ui/Button.astro";
+>>>>>>> origin/main
 
 export interface Props extends Widget {
   title?: string;
@@ -30,8 +34,12 @@ const {
   bg = await Astro.slots.render("bg"),
 } = Astro.props;
 
+<<<<<<< HEAD
 const locale = getLocaleFromUrl(Astro.url);
 const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }, locale) : [];
+=======
+const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
+>>>>>>> origin/main
 ---
 
 {
@@ -45,12 +53,16 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }, locale) : []
               set:html={title}
             />
             {APP_BLOG.list.isEnabled && linkText && linkUrl && (
+<<<<<<< HEAD
               <a
                 class="text-muted dark:text-slate-400 hover:text-primary transition ease-in duration-200 block mb-6 lg:mb-0"
                 href={linkUrl}
               >
                 {linkText} »
               </a>
+=======
+              <Button variant="link" href={linkUrl}> {linkText} »</Button>
+>>>>>>> origin/main
             )}
           </div>
         )}

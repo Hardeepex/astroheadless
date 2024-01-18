@@ -1,6 +1,10 @@
 import slugify from 'limax';
 
+<<<<<<< HEAD
 import { SITE, APP_BLOG, I18N } from '~/utils/config';
+=======
+import { SITE, APP_BLOG } from '~/utils/config';
+>>>>>>> origin/main
 
 import { trim } from '~/utils/utils';
 

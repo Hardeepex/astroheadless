@@ -22,7 +22,7 @@ export interface I18NConfig {
   defaultLocale: string;
   locales: { [key: string]: string };
   textDirection: string;
-  dateFormatter: unknown;
+  dateFormatter?: Intl.DateTimeFormat;
 }
 export interface AppBlogConfig {
   isEnabled: boolean;

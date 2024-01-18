@@ -1,20 +1,23 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { defineConfig } from 'astro/config';
+import { defineConfig, squooshImageService } from 'astro/config';
 
 import sitemap from '@astrojs/sitemap';
 import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
-import compress from 'astro-compress';
 import icon from 'astro-icon';
-import tasks from "./src/utils/tasks";
+import tasks from './src/utils/tasks';
 
-import { readingTimeRemarkPlugin } from './src/utils/frontmatter.mjs';
+import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter.mjs';
 
+<<<<<<< HEAD
 import { ANALYTICS, SITE, I18N } from './src/utils/config.ts';
+=======
+import { ANALYTICS, SITE } from './src/utils/config.ts';
+>>>>>>> origin/main
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -29,10 +32,13 @@ export default defineConfig({
   site: SITE.site,
   base: SITE.base,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+<<<<<<< HEAD
   
   build: {
     format: SITE.trailingSlash ? "directory" : "file"
   },
+=======
+>>>>>>> origin/main
 
   output: 'static',
 
@@ -85,21 +91,18 @@ export default defineConfig({
     ),
 
     tasks(),
-
-    compress({
-      CSS: true,
-      HTML: {
-        removeAttributeQuotes: false,
-      },
-      Image: false,
-      JavaScript: true,
-      SVG: true,
-      Logger: 1,
-    }),
   ],
+
+  image: {
+    service: squooshImageService(),
+  },
 
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
+<<<<<<< HEAD
+=======
+    rehypePlugins: [responsiveTablesRehypePlugin],
+>>>>>>> origin/main
   },
 
   vite: {

@@ -30,8 +30,12 @@ const {
   bg = await Astro.slots.render("bg"),
 } = Astro.props;
 
+<<<<<<< HEAD
 const locale = getLocaleFromUrl(Astro.url);
 const posts = APP_BLOG.isEnabled ? await findPostsByIds(postIds, locale) : [];
+=======
+const posts = APP_BLOG.isEnabled ? await findPostsByIds(postIds) : [];
+>>>>>>> origin/main
 ---
 
 {
