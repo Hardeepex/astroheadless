@@ -20,10 +20,10 @@ export const GET = async () => {
     site: import.meta.env.SITE,
 
     items: posts.map((post) => ({
-      link: getPermalink(post.permalink, 'post'),
-      title: post.title,
-      description: post.excerpt,
-      pubDate: post.publishDate,
+      link: post.link,
+      title: post.title.rendered,
+      description: post.excerpt.rendered,
+      pubDate: new Date(post.date),
     })),
 
     trailingSlash: SITE.trailingSlash,
