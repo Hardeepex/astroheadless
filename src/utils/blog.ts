@@ -91,14 +91,25 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
 };
 
 const load = async function (): Promise<Array<Post>> {
-  const posts = await getCollection('post');
-  const normalizedPosts = posts.map(async (post) => await getNormalizedPost(post));
+  const response = await fetch("https://juicytalent.com/wp-json/wp/v2/posts");
+  const postsData = await response.json();
+  const posts = postsData.map((postData) => ({
+    id: String(postData.id),
+    slug: postData.slug,
+    permalink: postData.link,
+    publishDate: new Date(postData.date),
+    updateDate: postData.modified ? new Date(postData.modified) : undefined,
+    title: postData.title.rendered,
+    excerpt: postData.excerpt.rendered,
+    image: postData.featured_media ? postData.featured_media.source_url : null,
+    category: postData.categories.length > 0 ? postData.categories[0].slug : undefined, // assuming first category
+    tags: postData.tags.map(tag => tag.slug), // assuming each has a slug
+    author: String(postData.author),
+    draft: postData.status !== 'publish',
+    readingTime: null // WordPress does not provide reading time by default
+  }));
 
-  const results = (await Promise.all(normalizedPosts))
-    .sort((a, b) => b.publishDate.valueOf() - a.publishDate.valueOf())
-    .filter((post) => !post.draft);
-
-  return results;
+  return posts;
 };
 
 let _posts: Array<Post>;
@@ -125,6 +136,13 @@ export const fetchPosts = async (): Promise<Array<Post>> => {
 
   return _posts;
 };
+
+// Added due to the need for fetching featured media details
+async function getFeaturedMedia(mediaId) {
+  const mediaResponse = await fetch(`https://juicytalent.com/wp-json/wp/v2/media/${mediaId}`);
+  const mediaData = await mediaResponse.json();
+  return mediaData.source_url;
+}
 
 /** */
 export const findPostsBySlugs = async (slugs: Array<string>): Promise<Array<Post>> => {
