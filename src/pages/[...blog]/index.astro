@@ -1,5 +1,5 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+import type { InferGetStaticPropsType } from 'astro';
 
 import merge from 'lodash.merge';
 import ApiDataFetcher from '~/components/ApiDataFetcher.astro';
@@ -17,23 +17,19 @@ export const prerender = true;
 
 import type { PropsFromApiDataFetcher } from '~/types/ApiDataFetcher';
 
-export const getStaticPaths = (async () => {
-  // Use ApiDataFetcher to get the blog posts or other dynamic content
-  const apiDataProps = await ApiDataFetcher.getStaticProps();
+// Replace getStaticPaths logic with Astro's built-in data fetching
+export const fetchContent = (async () => {
+  // Fetch data at build time using Astro's fetch API
+  const blogPostsResponse = await fetch('https://api.example.com/blog/posts');
+  const blogPostsData = await blogPostsResponse.json();
 
-  // Get blog post static paths
-  const blogPostPaths = await getStaticPathsBlogPost();
-
-  // Merge blog post paths with the dynamic content's props
-  const paths = {
-    paths: blogPostPaths.paths,
-    props: { ...apiDataProps.props }
+  return blogPostsData;
   };
 
   return paths;
-}) satisfies GetStaticPaths;
+});
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Props = ReturnType<typeof fetchContent>;
 
 const { post } = Astro.props as Props;
 
