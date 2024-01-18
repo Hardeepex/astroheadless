@@ -1,0 +1,23 @@
+---
+import { Fragment } from 'react';
+
+export async function getStaticProps() {
+  // Define the API endpoint from which data will be fetched.
+  const apiEndpoint = 'https://api.example.com/data';
+
+  // Fetch data from the API endpoint using the fetch function.
+  const response = await fetch(apiEndpoint);
+
+  // Parse the response to JSON format.
+  const data = await response.json();
+
+  // Export the fetched data as props for consumption by other components or pages.
+  return { props: { data } };
+}
+
+const ApiDataFetcher = ({ data }) => {
+  // The component does not render any UI elements.
+  return <Fragment />;
+};
+
+export default ApiDataFetcher;
