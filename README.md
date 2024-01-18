@@ -111,6 +111,8 @@ Inside **AstroWind** template, you'll see the following folders and files:
 ├── package.json
 ├── astro.config.mjs
 └── ...
+
+> ⚠️ **Note:** We've switched to Server-Side Rendering (SSR) for improved performance and dynamic content generation. After building the project with `npm run build`, you need to start the SSR server using `node ./dist/server/entry.mjs`.
 ```
 
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
@@ -134,7 +136,7 @@ All commands are run from the root of the project, from a terminal:
 | :-------------------- | :------------------------------------------------- |
 | `npm install`         | Installs dependencies                              |
 | `npm run dev`         | Starts local dev server at `localhost:3000`        |
-| `npm run build`       | Build your production site to `./dist/`            |
+| `npm run build`       | Build your SSR-ready production site to `./dist/`  |
 | `npm run preview`     | Preview your build locally, before deploying       |
 | `npm run format`      | Format codes with Prettier                         |
 | `npm run lint:eslint` | Run Eslint                                         |
@@ -169,6 +171,7 @@ metadata:
     images:
       - url: '~/assets/images/default.jpg'
         width: 1200
+| `node ./dist/server/entry.mjs` | Starts the SSR server on the default port |
         height: 628
     type: website
   twitter:
