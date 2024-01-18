@@ -1,7 +1,6 @@
 ---
-import { Fragment } from 'react';
-
-export async function getStaticProps() {
+// Function to fetch data at build time
+export async function fetchData() {
   // Define the API endpoint from which data will be fetched.
   const apiEndpoint = 'https://api.example.com/data';
 
@@ -13,11 +12,4 @@ export async function getStaticProps() {
 
   // Export the fetched data as props for consumption by other components or pages.
   return { props: { data } };
-}
-
-const ApiDataFetcher = ({ data }) => {
-  // The component does not render any UI elements.
-  return <Fragment />;
-};
-
-export default ApiDataFetcher;
+// The ApiDataFetcher component is removed as per the request.
