@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import ApiDataFetcher from '~/components/ApiDataFetcher.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
 import Note from '~/components/widgets/Note.astro';
@@ -314,6 +315,7 @@ const metadata = {
 
   <!-- HighlightedPosts Widget ******* -->
 
+  <ApiDataFetcher endpoint="/api/posts" />
   <BlogLatestPosts
     title="Find out more content in our Blog"
     information={`The blog is used to display AstroWind documentation.

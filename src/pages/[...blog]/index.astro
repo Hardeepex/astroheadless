@@ -2,6 +2,7 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
 
 import merge from 'lodash.merge';
+import ApiDataFetcher from '~/components/ApiDataFetcher.astro';
 import type { ImageMetadata } from 'astro';
 import Layout from '~/layouts/PageLayout.astro';
 import SinglePost from '~/components/blog/SinglePost.astro';
@@ -14,8 +15,22 @@ import type { MetaData } from '~/types';
 
 export const prerender = true;
 
+import type { PropsFromApiDataFetcher } from '~/types/ApiDataFetcher';
+
 export const getStaticPaths = (async () => {
-  return await getStaticPathsBlogPost();
+  // Use ApiDataFetcher to get the blog posts or other dynamic content
+  const apiDataProps = await ApiDataFetcher.getStaticProps();
+
+  // Get blog post static paths
+  const blogPostPaths = await getStaticPathsBlogPost();
+
+  // Merge blog post paths with the dynamic content's props
+  const paths = {
+    paths: blogPostPaths.paths,
+    props: { ...apiDataProps.props }
+  };
+
+  return paths;
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
