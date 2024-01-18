@@ -1,5 +1,6 @@
 ---
 import Features2 from '~/components/widgets/Features2.astro';
+import ApiDataFetcher from '~/components/ApiDataFetcher.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
@@ -14,6 +15,7 @@ const metadata = {
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
+  <ApiDataFetcher endpoint="/api/team" />
   <Hero
     tagline="About us"
     image={{
@@ -206,6 +208,7 @@ const metadata = {
 
   <!-- Features2 Widget ************** -->
 
+  <ApiDataFetcher endpoint="/api/locations" />
   <Features2
     title="Technical Support"
     tagline="Contact us"
