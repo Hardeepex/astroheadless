@@ -32,6 +32,10 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
+    node({
+      server: './src/entry.server.tsx',
+      client: './src/entry.client.tsx',
+    }),
     tailwind({
       applyBaseStyles: false,
     }),
